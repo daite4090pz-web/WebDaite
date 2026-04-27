@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ legend }}</h1>
+    <form method="post">
+        {{ forma.hidden_tag() }}
+        <div>{{ forma.nazvanie.label }}<br>{{ forma.nazvanie(size=80) }}</div>
+        <div>{{ forma.opisanie.label }}<br>{{ forma.opisanie(rows=15, cols=80) }}</div>
+        <div>{{ forma.category.label }}<br>{{ forma.category(size=5) }}</div>
+        <div>{{ forma.submit() }}</div>
+    </form>
+{% endblock %}

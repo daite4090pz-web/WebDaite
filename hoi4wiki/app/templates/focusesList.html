@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Национальные фокусы</h1>
+<p>Выберите страну, чтобы увидеть её уникальные фокусы.</p>
+<ul class="focusCountries">
+    {% for country in strany %}
+        <li>
+            <a href="{{ url_for('main.focusesByCountry', teg=country.teg) }}">
+                {{ country.nazvanie }} ({{ country.teg }})
+            </a>
+        </li>
+    {% else %}
+        <p>Пока нет стран с фокусами.</p>
+    {% endfor %}
+</ul>
+{% if current_user.is_admin %}
+    <hr>
+    <a href="{{ url_for('main.newFocus') }}" class="btn">Добавить новый фокус</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ statya.zagolovok }}</h1>
+    <p><strong>Автор:</strong> {{ statya.avtor.name }}</p>
+    <p><strong>Дата:</strong> {{ statya.dataSozdaniya.strftime('%d.%m.%Y %H:%M') }}</p>
+    {% if statya.category %}
+        <p><strong>Категории:</strong>
+        {% for cat in statya.category %}
+            <a href="{{ url_for('main.category', id=cat.id) }}">{{ cat.nazvanie }}</a>
+            {% if not loop.last %}, {% endif %}
+        {% endfor %}
+        </p>
+    {% endif %}
+    <hr>
+    <div>
+        {{ statya.soderzhanie | safe }}
+    </div>
+    <hr>
+    {% if current_user.is_authenticated and (current_user.id == statya.avtorId or current_user.is_admin) %}
+        <a href="{{ url_for('main.editStatya', id=statya.id) }}">Редактировать</a>
+        <form action="{{ url_for('main.deleteStatya', id=statya.id) }}" method="post" style="display:inline;">
+            <button type="submit" onclick="return confirm('Удалить статью?');">Удалить</button>
+        </form>
+    {% endif %}
+
+    <h2>Комментарии</h2>
+    {% for comment in kommentarii %}
+        <div class="comment">
+            <p><strong>{{ comment.avtor.name }}</strong> ({{ comment.dataSozdaniya.strftime('%d.%m.%Y %H:%M') }})</p>
+            <p>{{ comment.text }}</p>
+            {% if current_user.is_authenticated and (current_user.id == comment.avtorId or current_user.is_admin) %}
+                <form action="{{ url_for('main.deleteComment', commentId=comment.id) }}" method="post">
+                    <button type="submit" onclick="return confirm('Удалить комментарий?');">Удалить</button>
+                </form>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Комментариев пока нет.</p>
+    {% endfor %}
+
+    {% if current_user.is_authenticated %}
+        <h3>Оставить комментарий</h3>
+        <form method="post" action="{{ url_for('main.addComment', id=statya.id) }}">
+            {{ formaCommenta.hidden_tag() }}
+            <div>{{ formaCommenta.text(rows=3, cols=60) }}</div>
+            <div>{{ formaCommenta.submit() }}</div>
+        </form>
+    {% else %}
+        <p><a href="{{ url_for('main.login') }}">Войдите</a>, чтобы оставить комментарий.</p>
+    {% endif %}
+{% endblock %}

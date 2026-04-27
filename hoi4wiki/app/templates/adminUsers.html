@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Управление пользователями</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Email</th>
+        <th>Админ</th>
+        <th>Действия</th>
+    </tr>
+    {% for u in users %}
+    <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ 'Да' if u.isAdmin else 'Нет' }}</td>
+        <td>
+            {% if u.id != current_user.id %}
+                <a href="{{ url_for('main.toggleAdmin', id=u.id) }}">Переключить админ</a> |
+                <form action="{{ url_for('main.deleteUser', id=u.id) }}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Удалить пользователя?');">Удалить</button>
+                </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

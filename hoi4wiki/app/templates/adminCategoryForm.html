@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добавить категорию</h1>
+<form method="post">
+    <div>
+        <label for="nazvanie">Название</label><br>
+        <input type="text" name="nazvanie" id="nazvanie" required>
+    </div>
+    <div>
+        <label for="opisanie">Описание</label><br>
+        <textarea name="opisanie" id="opisanie" rows="4" cols="50"></textarea>
+    </div>
+    <div>
+        <button type="submit" class="btn">Сохранить</button>
+    </div>
+</form>
+{% endblock %}

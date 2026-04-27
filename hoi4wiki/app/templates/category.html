@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Категория: {{ category.nazvanie }}</h1>
+{% if category.opisanie %}
+    <p>{{ category.opisanie }}</p>
+{% endif %}
+
+<!-- Статьи -->
+<h2>Статьи ({{ statyi|length }})</h2>
+{% if statyi %}
+    <ul>
+    {% for s in statyi %}
+        <li>
+            <a href="{{ url_for('main.statya', id=s.id) }}">{{ s.zagolovok }}</a>
+            {% if current_user.is_authenticated and (current_user.id == s.avtorId or current_user.is_admin) %}
+                <a href="{{ url_for('main.editStatya', id=s.id) }}" class="small">[ред.]</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Нет статей в этой категории.</p>
+{% endif %}
+{% if current_user.is_authenticated %}
+    <a href="{{ url_for('main.newStatya') }}" class="btn">Добавить статью</a>
+{% endif %}
+
+<!-- Страны -->
+{% if strany %}
+    <h2>Страны ({{ strany|length }})</h2>
+    <ul>
+    {% for c in strany %}
+        <li>
+            <a href="{{ url_for('main.countryDetail', teg=c.teg) }}">{{ c.nazvanie }} ({{ c.teg }})</a>
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('main.editCountry', id=c.id) }}" class="small">[ред.]</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Механики -->
+{% if mehaniki %}
+    <h2>Механики ({{ mehaniki|length }})</h2>
+    <ul>
+    {% for m in mehaniki %}
+        <li>
+            <a href="{{ url_for('main.mechanicDetail', id=m.id) }}">{{ m.nazvanie }}</a>
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('main.editMechanic', id=m.id) }}" class="small">[ред.]</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Юниты -->
+{% if unity %}
+    <h2>Юниты ({{ unity|length }})</h2>
+    <ul>
+    {% for u in unity %}
+        <li>
+            <a href="{{ url_for('main.unitDetail', id=u.id) }}">{{ u.nazvanie }} ({{ u.tip }})</a>
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('main.editUnit', id=u.id) }}" class="small">[ред.]</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Технологии -->
+{% if tehnologii %}
+    <h2>Технологии ({{ tehnologii|length }})</h2>
+    <ul>
+    {% for t in tehnologii %}
+        <li>
+            <a href="{{ url_for('main.technologyDetail', id=t.id) }}">{{ t.nazvanie }}</a>
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('main.editTechnology', id=t.id) }}" class="small">[ред.]</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Фокусы -->
+{% if fokusy %}
+    <h2>Фокусы ({{ fokusy|length }})</h2>
+    <ul>
+    {% for f in fokusy %}
+        <li>
+            <a href="{{ url_for('main.focusDetail', id=f.id) }}">{{ f.nazvanie }} ({{ f.stranaTeg }})</a>
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('main.editFocus', id=f.id) }}" class="small">[ред.]</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Кнопки для админов: добавить новый объект в эту категорию -->
+{% if current_user.is_admin %}
+    <hr>
+    <p><strong>Добавить в эту категорию:</strong></p>
+    <a href="{{ url_for('main.newStatya') }}" class="btn">Статью</a>
+    <a href="{{ url_for('main.newCountry') }}" class="btn">Страну</a>
+    <a href="{{ url_for('main.newMechanic') }}" class="btn">Механику</a>
+    <a href="{{ url_for('main.newUnit') }}" class="btn">Юнит</a>
+    <a href="{{ url_for('main.newTechnology') }}" class="btn">Технологию</a>
+    <a href="{{ url_for('main.newFocus') }}" class="btn">Фокус</a>
+{% endif %}
+{% endblock %}
