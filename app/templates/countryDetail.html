@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ country.nazvanie }} ({{ country.teg }})</h1>
+    <p><strong>Идеология:</strong> {{ country.ideologiya }}</p>
+    <div>
+        <strong>Историческая справка:</strong><br>
+        {{ country.istoricheskayaSpravka }}
+    </div>
+    {% if current_user.is_admin %}
+        <p><a href="{{ url_for('main.editCountry', id=country.id) }}">Редактировать</a></p>
+    {% endif %}
+{% endblock %}

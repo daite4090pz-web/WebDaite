@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Вход</h1>
+    <form method="post">
+        {{ forma.hidden_tag() }}
+        <div>
+            {{ forma.email.label }}<br>
+            {{ forma.email(size=40) }}
+        </div>
+        <div>
+            {{ forma.password.label }}<br>
+            {{ forma.password(size=40) }}
+        </div>
+        <div>
+            {{ forma.rememberMe() }} {{ forma.rememberMe.label }}
+        </div>
+        <div>
+            {{ forma.submit() }}
+        </div>
+    </form>
+    <p>Нет аккаунта? <a href="{{ url_for('main.register') }}">Зарегистрироваться</a></p>
+{% endblock %}

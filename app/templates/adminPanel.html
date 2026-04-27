@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Админ-панель</h1>
+    <ul>
+        <li><a href="{{ url_for('main.adminUsers') }}">Управление пользователями</a></li>
+        <li><a href="{{ url_for('main.newCategory') }}">Добавить категорию</a></li>
+        <li><a href="{{ url_for('main.newCountry') }}">Добавить страну</a></li>
+        <li><a href="{{ url_for('main.newMechanic') }}">Добавить механику</a></li>
+        <li><a href="{{ url_for('main.countriesList') }}">Редактировать страны</a></li>
+        <li><a href="{{ url_for('main.mechanicsList') }}">Редактировать механики</a></li>
+    </ul>
+{% endblock %}

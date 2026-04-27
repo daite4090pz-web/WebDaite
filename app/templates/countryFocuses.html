@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Фокусы: {{ countryName }} ({{ teg }})</h1>
+{% if fokusy %}
+    <ul>
+    {% for f in fokusy %}
+        <li>
+            <a href="{{ url_for('main.focusDetail', id=f.id) }}">{{ f.nazvanie }}</a>
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('main.editFocus', id=f.id) }}" class="small">[ред.]</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>У этой страны пока нет фокусов.</p>
+{% endif %}
+{% endblock %}
