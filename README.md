@@ -31,33 +31,7 @@ HOI4 Вики — веб-приложение в жанре фанатской �
 
 Автоматические сиды – при первом запуске база наполняется стартовыми данными
 
-📁 Структура проекта
-text
-hoi4wiki/
-├── run.py                     # точка входа
-├── config.py                  # конфигурация Flask
-├── app/
-│   ├── __init__.py            # фабрика приложения, LoginManager
-│   ├── models.py              # SQLAlchemy модели (User, Article, Category, …)
-│   ├── forms.py               # Flask-WTF формы
-│   ├── routes.py              # все маршруты (Blueprint)
-│   ├── templates/             # Jinja2 шаблоны
-│   │   ├── base.html
-│   │   ├── index.html
-│   │   ├── article.html
-│   │   ├── editArticle.html
-│   │   ├── category.html
-│   │   ├── countriesList.html
-│   │   ├── countryDetail.html
-│   │   ├── countryFocuses.html
-│   │   ├── adminPanel.html
-│   │   ├── adminUsers.html
-│   │   ├── searchResults.html
-│   │   └── … (остальные шаблоны)
-│   └── static/
-│       ├── style.css          # темная фиолетовая тема
-│       └── uploads/           # загруженные изображения
-└── migrations/                # Alembic (при необходимости)
+
 🚀 Быстрый старт
 Склонируйте репозиторий или скопируйте файлы в папку hoi4wiki.
 
@@ -65,6 +39,8 @@ hoi4wiki/
 
 bash
 pip install flask flask-login flask-wtf sqlalchemy werkzeug
+
+
 Запустите приложение:
 
 bash
