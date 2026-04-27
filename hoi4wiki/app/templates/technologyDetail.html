@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>{{ tech.nazvanie }}</h1>
-<p><strong>Эра:</strong> {{ tech.era }}</p>
-<p>{{ tech.opisanie }}</p>
-{% if tech.category %}<p><strong>Категории:</strong> {% for cat in tech.category %}<a href="{{ url_for('main.category', id=cat.id) }}">{{ cat.nazvanie }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
-{% if current_user.is_admin %}<a href="{{ url_for('main.editTechnology', id=tech.id) }}">Редактировать</a>{% endif %}
-{% endblock %}
